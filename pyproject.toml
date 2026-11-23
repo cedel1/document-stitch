@@ -24,6 +24,17 @@ testpaths = ["test"]
 addopts = "--import-mode=importlib"
 pythonpath = ["src", "."]
 
+[tool.coverage.run]
+source = ["src", "document_stitch"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 95
+
+[tool.coverage.xml]
+output = "coverage.xml"
+
 [tool.pylint.main]
 init-hook = "import sys; sys.path[:0] = ['src']"
 ignored-modules = ["document_stitch"]
@@ -45,4 +56,5 @@ dev = [
     "black>=26.10.1",
     "pylint>=4.1.4",
     "pytest>=9.2.0",
+    "pytest-cov>=7.1.0",
 ]
