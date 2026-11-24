@@ -25,6 +25,7 @@ addopts = "--import-mode=importlib"
 pythonpath = ["src", "."]
 
 [tool.coverage.run]
+relative_files = true
 source = ["src", "document_stitch"]
 branch = true
 
