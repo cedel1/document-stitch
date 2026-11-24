@@ -43,6 +43,22 @@ def test_load_config_file_should_raise_for_missing_file(tmp_path: Path) -> None:
         load_config_file(tmp_path / "missing.toml")
 
 
+def test_load_config_file_should_raise_for_non_toml_file(tmp_path: Path) -> None:
+    """A file without the .toml suffix is rejected."""
+    path = tmp_path / "config.txt"
+    path.write_text("overwrite = true")
+    with pytest.raises(ConfigError, match="not an existing .toml file"):
+        load_config_file(path)
+
+
+def test_load_config_file_should_raise_for_directory(tmp_path: Path) -> None:
+    """A directory named like a TOML file is rejected."""
+    directory = tmp_path / "dir.toml"
+    directory.mkdir()
+    with pytest.raises(ConfigError):
+        load_config_file(directory)
+
+
 def test_find_global_config_should_prefer_explicit_file(tmp_path: Path) -> None:
     """--config replaces the file next to the script."""
     (tmp_path / "script").mkdir()

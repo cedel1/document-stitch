@@ -22,8 +22,11 @@ def load_config_file(path: Path, allow_folder_selection: bool = True) -> Options
     Raises:
         ConfigError: If the file cannot be read, parsed or contains invalid options.
     """
+    resolved_path = path.resolve()
+    if path.suffix != ".toml" or not resolved_path.is_file():
+        raise ConfigError(f"configuration file {path} is not an existing .toml file")
     try:
-        with path.open("rb") as handle:
+        with resolved_path.open("rb") as handle:
             data = tomllib.load(handle)
     except OSError as error:
         raise ConfigError(f"cannot read configuration file {path}: {error}") from error
