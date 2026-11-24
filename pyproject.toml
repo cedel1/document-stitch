@@ -26,7 +26,8 @@ pythonpath = ["src", "."]
 
 [tool.coverage.run]
 relative_files = true
-source = ["src", "document_stitch"]
+source = ["."]
+omit = ["test/*", ".venv/*"]
 branch = true
 
 [tool.coverage.report]
